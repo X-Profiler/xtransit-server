@@ -5,6 +5,8 @@ module.exports = () => {
 
   config.wsPort = 9090;
 
+  config.webPort = 9091;
+
   config.httpTimeout = 15000;
 
   config.xtransitManager = '';
