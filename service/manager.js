@@ -1,7 +1,7 @@
 'use strict';
 
 const address = require('address');
-const { webPort } = require('../config');
+const { serverPort, agentSplitter } = require('../config');
 const request = require('../proxy/request');
 const logger = require('../proxy/logger');
 
@@ -36,7 +36,15 @@ module.exports = {
   },
 
   async updateClient(appId, agentId, clientId, timestamp) {
-    const server = `${address.ip()}::${webPort}`;
-    return await manager('/xtransit/client_status', { appId, agentId, clientId, server, timestamp }, 'getAppSecret');
+    const server = `${address.ip()}::${serverPort}`;
+    return await manager('/xtransit/update_client', { appId, agentId, clientId, server, timestamp }, 'updateClient');
+  },
+
+  async removeClient(clinetIdentity) {
+    if (!clinetIdentity) {
+      return;
+    }
+    const [appId, agentId, clientId] = clinetIdentity.split(agentSplitter);
+    return await manager('/xtransit/remove_client', { appId, agentId, clientId }, 'removeClient');
   },
 };

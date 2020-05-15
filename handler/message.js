@@ -1,11 +1,12 @@
 'use strict';
 
 // const { v4: uuidv4 } = require('uuid');
+const config = require('../config');
 const utils = require('../lib/utils');
 const manager = require('../service/manager');
 const logger = require('../proxy/logger');
 
-const agentKey = utils.getAgentKey();
+const { agentKey, agentSplitter } = config;
 
 module.exports = async function messageHandler(message) {
   const { ws, shutdown } = this;
@@ -41,7 +42,7 @@ module.exports = async function messageHandler(message) {
   }
 
   const { agentId, type } = message;
-  const clientIdentity = `${appId}::${agentId}::${clientId}`;
+  const clientIdentity = [appId, agentId, clientId].join(agentSplitter);
   // handle heartbeat
   if (type === 'heartbeat') {
     ws[agentKey] = clientIdentity;

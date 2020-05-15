@@ -5,7 +5,7 @@
   "main": "dispatch.js",
   "scripts": {
     "start": "NODE_ENV=local nodemon dispatch.js",
-    "lint": "eslint config handler lib proxy service *.js --fix",
+    "lint": "eslint config controller handler lib middleware proxy service *.js --fix",
     "autod": "autod"
   },
   "repository": {
@@ -32,6 +32,9 @@
   "dependencies": {
     "address": "^1.1.2",
     "agentkeepalive": "^4.1.2",
+    "koa": "^2.11.0",
+    "koa-bodyparser": "^4.3.0",
+    "koa-router": "^8.0.8",
     "mini-logger": "^1.1.3",
     "urllib": "^2.34.2",
     "uuid": "^8.0.0",

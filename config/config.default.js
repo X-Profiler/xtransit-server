@@ -3,13 +3,15 @@
 module.exports = () => {
   const config = {};
 
-  config.wsPort = 9090;
+  config.xtransitManager = '';
 
-  config.webPort = 9091;
+  config.agentKey = Symbol('XTRANSIT::ID');
+
+  config.agentSplitter = '\u0000';
+
+  config.serverPort = 9090;
 
   config.httpTimeout = 15000;
-
-  config.xtransitManager = '';
 
   config.security = {
     secret: 'easy-monitor::xprofiler',
