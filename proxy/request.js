@@ -19,7 +19,7 @@ module.exports = async function sendMessage(url, data, method = 'POST') {
     method,
     data,
     nestedQuerystring: true,
-    timeout: httpTimeout,
+    timeout: data.expiredTime || httpTimeout,
     agent: keepaliveAgent,
     contentType: 'json',
   });
