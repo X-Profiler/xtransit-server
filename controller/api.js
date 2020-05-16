@@ -3,7 +3,7 @@
 const { v4: uuidv4 } = require('uuid');
 const { agentSplitter } = require('../config');
 const utils = require('../lib/utils');
-const { shutdown } = require('../lib/ws');
+const { shutdown, send } = require('../lib/ws');
 
 exports.shutdown = async function(ctx) {
   const { appId, agentId, oldClientId: clientId } = ctx.request.body;
@@ -26,4 +26,16 @@ exports.checkClientAlive = async function(ctx) {
   }, {});
 
   ctx.body = { ok: true, data };
+};
+
+exports.execCommand = async function(ctx) {
+  const { appId, agentId, clientId, command, expiredTime } = ctx.request.body;
+  const clientIdentity = [appId, agentId, clientId].join(agentSplitter);
+  const client = utils.getClient(clientIdentity);
+  if (!client) {
+    return (ctx.body = { ok: false, message: `${utils.getClientInfo(clientIdentity)} not connected` });
+  }
+  const response = await send('exec_command', { command, expiredTime }, client);
+
+  ctx.body = { ok: true, data: response };
 };

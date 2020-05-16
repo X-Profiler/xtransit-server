@@ -44,10 +44,19 @@ module.exports = async function messageHandler(message) {
 
   const { agentId, type } = message;
   const clientIdentity = [appId, agentId, clientId].join(agentSplitter);
+
   // handle heartbeat
   if (type === 'heartbeat') {
     ws[agentKey] = clientIdentity;
     await manager.updateClient(appId, agentId, clientId, timestamp);
     utils.setClient(clientIdentity, ws);
+    return;
+  }
+
+  // handle response
+  if (type === 'response') {
+    const { data } = message;
+    utils.responseEvent.emit(traceId, data);
+    return;
   }
 };
