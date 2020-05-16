@@ -12,10 +12,11 @@ module.exports = async function(ctx, next) {
     data = body;
   }
   const { signature } = data;
+  delete data.signature;
   if (!signature) {
     return (ctx.body = { ok: false, message: '需要签名', code: 401 });
   }
-  if (utils.sign(secret, JSON.stringify(data)) !== signature) {
+  if (utils.sign(data, secret) !== signature) {
     return (ctx.body = { ok: false, message: '签名错误', code: 401 });
   }
   await next();

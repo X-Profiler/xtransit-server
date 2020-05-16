@@ -36,7 +36,7 @@ module.exports = {
   },
 
   async updateClient(appId, agentId, clientId, timestamp) {
-    const server = `${address.ip()}::${serverPort}`;
+    const server = `${address.ip()}:${serverPort}`;
     return await manager('/xtransit/update_client', { appId, agentId, clientId, server, timestamp }, 'updateClient');
   },
 

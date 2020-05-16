@@ -3,13 +3,14 @@
 // const { v4: uuidv4 } = require('uuid');
 const config = require('../config');
 const utils = require('../lib/utils');
+const { shutdown } = require('../lib/ws');
 const manager = require('../service/manager');
 const logger = require('../proxy/logger');
 
 const { agentKey, agentSplitter } = config;
 
 module.exports = async function messageHandler(message) {
-  const { ws, shutdown } = this;
+  const { ws } = this;
   // parse message
   try {
     message = JSON.parse(message);
@@ -21,14 +22,14 @@ module.exports = async function messageHandler(message) {
   // check appId / clientId
   const { traceId, appId, clientId } = message;
   if (!appId || !clientId) {
-    return shutdown(traceId, 'appId & clientId can\'t be empty');
+    return shutdown(traceId, 'appId & clientId can\'t be empty', ws);
   }
 
   // check signature
   const { secret, code } = await manager.getAppSecret(appId);
   if (!secret) {
     if (code !== 'HTTPREQUESTFAILED') {
-      return shutdown(traceId, 'appId not exists');
+      return shutdown(traceId, 'appId not exists', ws);
     }
     return;
   }
@@ -38,7 +39,7 @@ module.exports = async function messageHandler(message) {
   }
   delete message.signature;
   if (signature !== utils.sign(message, secret)) {
-    return shutdown(traceId, 'sign error');
+    return shutdown(traceId, 'sign error', ws);
   }
 
   const { agentId, type } = message;
