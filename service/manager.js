@@ -47,4 +47,8 @@ module.exports = {
     const [appId, agentId, clientId] = clinetIdentity.split(agentSplitter);
     return await manager('/xtransit/remove_client', { appId, agentId, clientId }, 'removeClient');
   },
+
+  async sendLog(appId, agentId, log) {
+    return await manager('/xtransit/log', { appId, agentId, log }, 'sendLog');
+  },
 };

@@ -59,4 +59,11 @@ module.exports = async function messageHandler(message) {
     utils.responseEvent.emit(traceId, data);
     return;
   }
+
+  // handle logs
+  if (type === 'log') {
+    const { data } = message;
+    await manager.sendLog(appId, agentId, data);
+    return;
+  }
 };
