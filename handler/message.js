@@ -66,4 +66,11 @@ module.exports = async function messageHandler(message) {
     await manager.sendLog(appId, agentId, data);
     return;
   }
+
+  // handle actions
+  if (type === 'action') {
+    const { filePath } = message.data;
+    await manager.updateActionStatus(appId, agentId, filePath);
+    return;
+  }
 };

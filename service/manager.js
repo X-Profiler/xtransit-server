@@ -51,4 +51,8 @@ module.exports = {
   async sendLog(appId, agentId, log) {
     return await manager('/xtransit/log', { appId, agentId, log }, 'sendLog');
   },
+
+  async updateActionStatus(appId, agentId, filePath) {
+    return await manager('/xtransit/update_action_status', { appId, agentId, filePath }, 'sendActionResult');
+  },
 };

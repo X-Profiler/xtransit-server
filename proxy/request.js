@@ -18,7 +18,6 @@ module.exports = async function sendMessage(url, data, method = 'POST') {
   return urllib.request(requestUrl, {
     method,
     data,
-    nestedQuerystring: true,
     timeout: data.expiredTime || httpTimeout,
     agent: keepaliveAgent,
     contentType: 'json',
