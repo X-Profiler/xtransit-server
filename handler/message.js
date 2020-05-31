@@ -14,7 +14,6 @@ module.exports = async function messageHandler(message) {
   // parse message
   try {
     message = JSON.parse(message);
-    console.log(message);
   } catch (err) {
     return logger.error(`parse message failed: ${err}, raw message: ${message}`);
   }

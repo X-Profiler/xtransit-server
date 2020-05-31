@@ -4,7 +4,9 @@
   "description": "server for xtransit",
   "main": "dispatch.js",
   "scripts": {
-    "start": "NODE_ENV=local nodemon dispatch.js",
+    "start": "pm2 kill && pm2 start --name xtransit-server dispatch.js",
+    "stop": "pm2 delete xtransit-server",
+    "dev": "NODE_ENV=local nodemon dispatch.js",
     "lint": "eslint config controller handler lib middleware proxy service *.js --fix",
     "autod": "autod"
   },
