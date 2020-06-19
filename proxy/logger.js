@@ -12,7 +12,10 @@ if (config.env !== 'production') {
 } else {
   customLogDir = path.join(os.homedir(), 'logs/xtransit-server');
 }
-fs.mkdirSync(customLogDir, { recursive: true });
+
+if (!fs.existsSync(customLogDir)) {
+  fs.mkdirSync(customLogDir, { recursive: true });
+}
 
 module.exports = Logger({
   dir: customLogDir,
