@@ -7,6 +7,7 @@
     "start": "pm2 kill && pm2 start --name xtransit-server dispatch.js",
     "stop": "pm2 delete xtransit-server",
     "dev": "NODE_ENV=local nodemon dispatch.js",
+    "dev-win": "cross-env NODE_ENV=local nodemon dispatch.js",
     "lint": "eslint config controller handler lib middleware proxy service *.js --fix",
     "autod": "autod"
   },
@@ -34,6 +35,7 @@
   "dependencies": {
     "address": "^1.1.2",
     "agentkeepalive": "^4.1.2",
+    "cross-env": "^7.0.2",
     "koa": "^2.11.0",
     "koa-bodyparser": "^4.3.0",
     "koa-router": "^8.0.8",
