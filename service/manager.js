@@ -26,6 +26,7 @@ async function manager(url, body, func) {
     }
   } catch (err) {
     logger.error(`${func} parse failed: ${err}, raw data: ${data}`);
+    data = { code: 'HTTPREQUESTFAILED' };
   }
   return data;
 }
