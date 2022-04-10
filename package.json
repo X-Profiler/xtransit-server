@@ -1,12 +1,12 @@
 {
   "name": "xtransit-server",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "server for xtransit",
   "main": "dispatch.js",
   "scripts": {
-    "start": "pm2 kill && pm2 start --name xtransit-server dispatch.js",
-    "stop": "pm2 delete xtransit-server",
-    "dev": "nodemon dispatch.js",
+    "start": "egg-scripts start --daemon --title=egg-server-xtransit-server --port=9090 --workers=4",
+    "stop": "egg-scripts stop --title=egg-server-xtransit-server",
+    "dev": "egg-bin dev --port=9090",
     "lint": "eslint config controller handler lib middleware proxy service *.js --fix",
     "autod": "autod"
   },
@@ -27,13 +27,15 @@
   "homepage": "https://github.com/hyj1991/xtransit-server#readme",
   "devDependencies": {
     "autod": "^3.1.0",
+    "egg-bin": "^4.19.0",
     "eslint": "^7.0.0",
-    "eslint-config-egg": "^8.0.1",
-    "nodemon": "^2.0.3"
+    "eslint-config-egg": "^8.0.1"
   },
   "dependencies": {
     "address": "^1.1.2",
     "agentkeepalive": "^4.1.2",
+    "egg": "^2.35.0",
+    "egg-scripts": "^2.16.0",
     "koa": "^2.11.0",
     "koa-bodyparser": "^4.3.0",
     "koa-router": "^8.0.8",
