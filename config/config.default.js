@@ -16,8 +16,8 @@ module.exports = appInfo => {
   config.channelMessageToApp = 'XPROFILER::CHANNEL_MESSAGE_TO_APP';
 
   config.errorCode = {
-    expired: Symbol('XPROFILER_EXPIRED'),
-    noClient: Symbol('XPROFILER_NO_CLIENT'),
+    expired: 'XPROFILER_EXPIRED',
+    noClient: 'XPROFILER_NO_CLIENT',
   };
 
   config.secure = {
