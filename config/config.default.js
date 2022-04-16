@@ -1,7 +1,9 @@
 'use strict';
 
-module.exports = () => {
+module.exports = appInfo => {
   const config = {};
+
+  config.keys = appInfo.name + '_1588763650298_5886';
 
   config.xtransitManager = '';
 
@@ -13,8 +15,16 @@ module.exports = () => {
 
   config.httpTimeout = 15000;
 
-  config.security = {
+  config.secure = {
     secret: 'easy-monitor::xprofiler',
+  };
+
+  config.security = {
+    csrf: {
+      ignore: [
+        '/xapi',
+      ],
+    },
   };
 
   return config;
