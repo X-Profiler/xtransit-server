@@ -31,6 +31,12 @@ class XtransitServerBoot {
 
     wss.on('error', err => logger.error(`websocket server error: ${err}.`));
   }
+
+  async didReady() {
+    const { app } = this;
+    const ctx = app.createAnonymousContext();
+    ctx.ipc.register();
+  }
 }
 
 module.exports = XtransitServerBoot;

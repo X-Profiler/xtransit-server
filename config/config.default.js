@@ -15,6 +15,13 @@ module.exports = appInfo => {
 
   config.httpTimeout = 15000;
 
+  config.channelMessageToApp = 'XPROFILER::CHANNEL_MESSAGE_TO_APP';
+
+  config.errorCode = {
+    expired: Symbol('XPROFILER_EXPIRED'),
+    noClient: Symbol('XPROFILER_NO_CLIENT'),
+  };
+
   config.secure = {
     secret: 'easy-monitor::xprofiler',
   };
