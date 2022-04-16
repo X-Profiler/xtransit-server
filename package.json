@@ -7,7 +7,7 @@
     "start": "egg-scripts start --daemon --title=egg-server-xtransit-server --port=9090 --workers=4",
     "stop": "egg-scripts stop --title=egg-server-xtransit-server",
     "dev": "egg-bin dev --port=9090",
-    "lint": "eslint app config --fix",
+    "lint": "eslint app config *.js --fix",
     "autod": "autod"
   },
   "repository": {

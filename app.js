@@ -1,8 +1,6 @@
 'use strict';
 
 const WebSocket = require('ws');
-const messageHandler = require('./handler/message');
-const closeHandler = require('./handler/close');
 
 class XtransitServerBoot {
   constructor(app) {
@@ -10,22 +8,21 @@ class XtransitServerBoot {
   }
 
   async serverDidReady() {
-    const { app: { server, logger } } = this;
+    const { app, app: { server, logger } } = this;
+    const { service: { handler } } = app.createAnonymousContext();
     const wss = new WebSocket.Server({ server });
 
     wss.on('connection', ws => {
-      const ctx = { ws };
-
       // handle message event
       ws.on('message', message =>
-        messageHandler
-          .call(ctx, message)
+        handler
+          .message(ws, message)
           .catch(err => logger.error(`ws handle message error: ${err}, message: ${message}.`)));
 
       // handle close event
       ws.on('close', () =>
-        closeHandler
-          .call(ctx)
+        handler
+          .close(ws)
           .catch(err => logger.error(`ws handle close error: ${err}.`)));
     });
 
@@ -34,8 +31,10 @@ class XtransitServerBoot {
 
   async didReady() {
     const { app } = this;
-    const ctx = app.createAnonymousContext();
-    ctx.ipc.register();
+    const { service: { ipc } } = app.createAnonymousContext();
+
+    // register ipc channel
+    ipc.register();
   }
 }
 

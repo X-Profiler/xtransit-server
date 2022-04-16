@@ -5,8 +5,6 @@ module.exports = appInfo => {
 
   config.keys = appInfo.name + '_1588763650298_5886';
 
-  config.xtransitManager = '';
-
   config.agentKey = Symbol('XTRANSIT::ID');
 
   config.agentSplitter = '\u0000';
@@ -34,5 +32,13 @@ module.exports = appInfo => {
     },
   };
 
-  return config;
+  // user config
+  const userConfig = {};
+
+  userConfig.xtransitManager = '';
+
+  return {
+    ...config,
+    ...userConfig,
+  };
 };
