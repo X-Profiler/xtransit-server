@@ -6,7 +6,7 @@ COPY . .
 
 ENV NODE_ENV prod
 
-RUN npm config set registry https://registry.npm.taobao.org && npm install --prod
+RUN npm config set registry https://registry.npmmirror.com && npm install --prod
 
 EXPOSE 9090
 
