@@ -72,14 +72,14 @@ class IpcService extends Service {
     const { appId, agentId, clientId } = options;
     const identity = this.composeClientIdentity(appId, agentId, clientId);
     const traceId = uuidv4();
-    logger.info(`[ipc.request] [${traceId}] <${JSON.stringify(options)}> execute ${action} request: ${JSON.stringify({ action, data })}`);
+    // logger.info(`[ipc.request] [${traceId}] <${JSON.stringify(options)}> execute ${action} request: ${JSON.stringify({ action, data })}`);
     messenger.sendToApp(channelMessageToApp, { traceId, identity, action, data });
 
     const tasks = [];
     tasks.push(this.timeout(data.expiredTime || httpTimeout, action));
     tasks.push(this.waitForResponse(traceId));
     const response = await Promise.race(tasks);
-    logger.info(`[ipc.request] [${traceId}] <${JSON.stringify(options)}> execute ${action} response: ${JSON.stringify(response)}`);
+    // logger.info(`[ipc.request] [${traceId}] <${JSON.stringify(options)}> execute ${action} response: ${JSON.stringify(response)}`);
     return response;
   }
 }

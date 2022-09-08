@@ -9,8 +9,6 @@ module.exports = appInfo => {
 
   config.agentSplitter = '\u0000';
 
-  config.serverPort = 9090;
-
   config.httpTimeout = 15000;
 
   config.channelMessageToApp = 'XPROFILER::CHANNEL_MESSAGE_TO_APP';

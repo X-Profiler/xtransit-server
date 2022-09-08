@@ -46,8 +46,8 @@ class ManagerService extends Service {
   }
 
   async updateClient(appId, agentId, clientId, timestamp) {
-    const { ctx: { app: { config: { serverPort } } } } = this;
-    const server = `${address.ip()}:${serverPort}`;
+    const { ctx: { app } } = this;
+    const server = `${address.ip()}:${app.server.address().port}`;
     return await this.request('/xtransit/update_client', { appId, agentId, clientId, server, timestamp }, 'updateClient');
   }
 
