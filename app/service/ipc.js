@@ -68,7 +68,7 @@ class IpcService extends Service {
   }
 
   async request(options, action, data = {}) {
-    const { ctx: { logger, app: { messenger, config: { channelMessageToApp, httpTimeout } } } } = this;
+    const { ctx: { app: { messenger, config: { channelMessageToApp, httpTimeout } } } } = this;
     const { appId, agentId, clientId } = options;
     const identity = this.composeClientIdentity(appId, agentId, clientId);
     const traceId = uuidv4();
