@@ -24,6 +24,11 @@ class XtransitServerBoot {
         handler
           .close(ws)
           .catch(err => logger.error(`ws handle close error: ${err}.`)));
+
+      // handle error event
+      ws.on('error', err => {
+        logger.error(`ws handle receive error: ${err}.`);
+      });
     });
 
     wss.on('error', err => logger.error(`websocket server error: ${err}.`));
