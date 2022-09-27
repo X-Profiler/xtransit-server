@@ -33,7 +33,7 @@ module.exports = appInfo => {
   // user config
   const userConfig = {};
 
-  userConfig.xtransitManager = '';
+  userConfig.xtransitManager = 'http://127.0.0.1:8543';
 
   return {
     ...config,

@@ -18,9 +18,17 @@ class ManagerController extends Controller {
     }
 
     const data = {};
-    for (let index = 0; index < clients.length; index++) {
-      const response = await ipc.request(clients[index], 'manager.checkClientAlive');
-      data[index] = response.ok;
+    const response = await ipc.broadcast(clients, 'manager.checkClientAlive');
+    for (const list of response) {
+      for (let index = 0; index < list.length; index++) {
+        // status checked
+        if (data[index]) {
+          continue;
+        }
+
+        // set exist status
+        data[index] = list[index].ok;
+      }
     }
 
     ctx.body = { ok: true, data };
