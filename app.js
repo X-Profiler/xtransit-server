@@ -9,10 +9,14 @@ class XtransitServerBoot {
 
   async serverDidReady() {
     const { app, app: { server, logger } } = this;
-    const { service: { handler } } = app.createAnonymousContext();
     const wss = new WebSocket.Server({ server });
 
     wss.on('connection', ws => {
+      const { service: { handler } } = app.createAnonymousContext();
+
+      // check valid
+      handler.checkValid(ws);
+
       // handle message event
       ws.on('message', message =>
         handler

@@ -74,6 +74,22 @@ class HandlerService extends Service {
     }
   }
 
+  async checkValid(ws) {
+    const { ctx: {
+      logger,
+      app: { config: { agentKey, wsValidTime } },
+    } } = this;
+
+    setTimeout(() => {
+      // if ws doesn't have agentKey, it means it's not a valid connection
+      if (!ws[agentKey]) {
+        logger.error('invalid connection, close it. ip: %s, port: %s', ws._socket.remoteAddress, ws._socket.remotePort);
+        ws.close();
+        return;
+      }
+    }, wsValidTime);
+  }
+
   async close(ws) {
     const { ctx: {
       logger,
@@ -81,11 +97,13 @@ class HandlerService extends Service {
       app: { config: { agentKey } },
     } } = this;
 
-    const clinetIdentity = ws[agentKey];
-    const extra = websocket.getClientInfo(clinetIdentity);
-    logger.error(`${extra} has been closed.`);
-    websocket.deleteClient(clinetIdentity);
-    await manager.removeClient(clinetIdentity);
+    const clientIdentity = ws[agentKey];
+    if (clientIdentity) {
+      const extra = websocket.getClientInfo(clientIdentity);
+      logger.error(`${extra} has been closed.`);
+      websocket.deleteClient(clientIdentity);
+      await manager.removeClient(clientIdentity);
+    }
   }
 }
 

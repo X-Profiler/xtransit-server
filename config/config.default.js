@@ -11,6 +11,8 @@ module.exports = appInfo => {
 
   config.httpTimeout = 15000;
 
+  config.wsValidTime = 5000;
+
   config.channelMessageToApp = 'XPROFILER::CHANNEL_MESSAGE_TO_APP';
 
   config.errorCode = {
