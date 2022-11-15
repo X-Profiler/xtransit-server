@@ -102,7 +102,7 @@ class HandlerService extends Service {
       websocket.deleteClient(clientIdentity);
       await manager.removeClient(clientIdentity);
     } else {
-      logger.error(`invalid connection, close it. ip: ${req.headers['x-real-ip']}`);
+      logger.error(`invalid connection, close it. ip ${req.headers['x-real-ip']}`);
     }
   }
 }

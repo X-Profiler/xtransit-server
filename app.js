@@ -14,8 +14,6 @@ class XtransitServerBoot {
     wss.on('connection', (ws, req) => {
       const { service: { handler }, logger } = app.createAnonymousContext();
 
-      logger.info(`new connection connect. ip: ${req.headers['x-real-ip']}`);
-
       // check valid
       handler.checkValid(ws);
 
