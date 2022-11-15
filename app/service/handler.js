@@ -83,7 +83,6 @@ class HandlerService extends Service {
     setTimeout(() => {
       // if ws doesn't have agentKey, it means it's not a valid connection
       if (!ws[agentKey]) {
-        logger.error('invalid connection, close it. ip: %s, port: %s', ws._socket.remoteAddress, ws._socket.remotePort);
         ws.close();
         return;
       }
@@ -103,6 +102,8 @@ class HandlerService extends Service {
       logger.error(`${extra} has been closed.`);
       websocket.deleteClient(clientIdentity);
       await manager.removeClient(clientIdentity);
+    } else {
+      logger.error('invalid connection, close it. ip: %s, port: %s', ws._socket.remoteAddress, ws._socket.remotePort);
     }
   }
 }
