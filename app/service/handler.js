@@ -76,7 +76,6 @@ class HandlerService extends Service {
 
   async checkValid(ws) {
     const { ctx: {
-      logger,
       app: { config: { agentKey, wsValidTime } },
     } } = this;
 
@@ -89,7 +88,7 @@ class HandlerService extends Service {
     }, wsValidTime ?? 5000);
   }
 
-  async close(ws) {
+  async close(ws, req) {
     const { ctx: {
       logger,
       service: { websocket, manager },
@@ -103,7 +102,7 @@ class HandlerService extends Service {
       websocket.deleteClient(clientIdentity);
       await manager.removeClient(clientIdentity);
     } else {
-      logger.error('invalid connection, close it. ip: %s, port: %s', ws._socket.remoteAddress, ws._socket.remotePort);
+      logger.error(`invalid connection, close it. ip: ${req.headers['x-real-ip']}`);
     }
   }
 }
