@@ -87,7 +87,7 @@ class HandlerService extends Service {
         ws.close();
         return;
       }
-    }, wsValidTime);
+    }, wsValidTime ?? 5000);
   }
 
   async close(ws) {
