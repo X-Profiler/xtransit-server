@@ -8,11 +8,15 @@ class XtransitServerBoot {
   }
 
   async serverDidReady() {
-    const { app, app: { server, logger } } = this;
-    const { service: { handler } } = app.createAnonymousContext();
+    const { app, app: { server, logger: appLogger } } = this;
     const wss = new WebSocket.Server({ server });
 
-    wss.on('connection', ws => {
+    wss.on('connection', (ws, req) => {
+      const { service: { handler }, logger } = app.createAnonymousContext();
+
+      // check valid
+      handler.checkValid(ws);
+
       // handle message event
       ws.on('message', message =>
         handler
@@ -22,7 +26,7 @@ class XtransitServerBoot {
       // handle close event
       ws.on('close', () =>
         handler
-          .close(ws)
+          .close(ws, req)
           .catch(err => logger.error(`ws handle close error: ${err}.`)));
 
       // handle error event
@@ -31,7 +35,7 @@ class XtransitServerBoot {
       });
     });
 
-    wss.on('error', err => logger.error(`websocket server error: ${err}.`));
+    wss.on('error', err => appLogger.error(`websocket server error: ${err}.`));
   }
 
   async didReady() {
