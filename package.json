@@ -1,8 +1,8 @@
 {
-  "name": "xtransit-server",
+  "name": "@xprofiler/wsserver",
   "version": "1.0.0",
   "description": "server for xtransit",
-  "main": "dispatch.js",
+  "main": "index.js",
   "scripts": {
     "start": "egg-scripts start --daemon --title=egg-server-xtransit-server --port=9090 --workers=4",
     "stop": "egg-scripts stop --title=egg-server-xtransit-server",
