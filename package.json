@@ -10,6 +10,12 @@
     "lint": "eslint app config *.js --fix",
     "autod": "autod"
   },
+  "files": [
+    "app",
+    "config/config.default.js",
+    "app.js",
+    "index.js"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/hyj1991/xtransit-server.git"
