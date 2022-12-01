@@ -37,6 +37,8 @@ module.exports = appInfo => {
 
   userConfig.xtransitManager = 'http://127.0.0.1:8543';
 
+  userConfig.checkValid = false;
+
   return {
     ...config,
     ...userConfig,

@@ -76,8 +76,12 @@ class HandlerService extends Service {
 
   async checkValid(ws) {
     const { ctx: {
-      app: { config: { agentKey, wsValidTime } },
+      app: { config: { checkValid, agentKey, wsValidTime } },
     } } = this;
+
+    if (!checkValid) {
+      return;
+    }
 
     setTimeout(() => {
       // if ws doesn't have agentKey, it means it's not a valid connection

@@ -11,7 +11,7 @@ class AppWorkerLoader extends egg.AppWorkerLoader {
     super.load();
     const directory = path.join(__dirname, 'app');
     super.loadController({ directory: path.join(directory, 'controller') });
-    super.loadFile(path.join(directory, 'router'))
+    super.loadFile(path.join(directory, 'router'));
   }
 }
 
