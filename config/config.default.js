@@ -11,7 +11,7 @@ module.exports = appInfo => {
 
   config.httpTimeout = 15000;
 
-  config.wsValidTime = 5000;
+  config.wsValidTime = 75 * 1000;
 
   config.channelMessageToApp = 'XPROFILER::CHANNEL_MESSAGE_TO_APP';
 
@@ -37,7 +37,7 @@ module.exports = appInfo => {
 
   userConfig.xtransitManager = 'http://127.0.0.1:8543';
 
-  userConfig.checkValid = false;
+  userConfig.checkValid = true;
 
   return {
     ...config,
