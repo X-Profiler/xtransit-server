@@ -9,8 +9,18 @@ class IpcService extends Service {
       app: { messenger, config: { channelMessageToApp, errorCode } },
       service: { websocket },
     } } = this;
+
+    const handledActions = new Map();
+
     messenger.on(channelMessageToApp, async params => {
       const { traceId, clients, identity, action, data } = params;
+
+      // check duplicate action
+      if (handledActions.get(traceId)) {
+        return;
+      }
+      handledActions.set(traceId, true);
+
       const responseList = [];
       const broadcast = Array.isArray(clients);
 
@@ -45,6 +55,8 @@ class IpcService extends Service {
       } else {
         messenger.sendToApp(traceId, responseList[0]);
       }
+
+      handledActions.delete(traceId);
     });
   }
 
