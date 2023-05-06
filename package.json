@@ -4,9 +4,9 @@
   "description": "server for xtransit",
   "main": "index.js",
   "scripts": {
-    "start": "egg-scripts start --daemon --title=egg-server-xtransit-server --port=9090 --workers=4",
+    "start": "egg-scripts start --daemon --title=egg-server-xtransit-server --port=9190 --workers=4",
     "stop": "egg-scripts stop --title=egg-server-xtransit-server",
-    "dev": "egg-bin dev --port=9090",
+    "dev": "egg-bin dev --port=9190",
     "lint": "eslint app config *.js --fix",
     "autod": "autod"
   },

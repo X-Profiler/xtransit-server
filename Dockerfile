@@ -8,6 +8,6 @@ ENV NODE_ENV prod
 
 RUN npm config set registry https://registry.npmmirror.com && npm install --prod
 
-EXPOSE 9090
+EXPOSE 9190
 
 CMD [ "node", "dispatch.js" ]
